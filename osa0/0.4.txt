@@ -1,0 +1,19 @@
+kayttaja->selain:
+note left of selain
+Käyttäjä kirjoittaa lomakkeen tekstikenttään
+end note
+
+kayttaja->selain:
+note left of selain
+Käyttäjä painaa lomakkeen 'Tallenna' nappia
+end note
+
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/new_note
+note left of palvelin
+  Palvelin otaa muistiinpanon vastaan ja tallentaa sen tietokantaan
+end note
+
+palvelin->selain: status 302 created, location /notes
+
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/notes
+palvelin->selain: status 200, html

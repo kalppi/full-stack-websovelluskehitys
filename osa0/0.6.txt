@@ -1,0 +1,22 @@
+kayttaja->selain:
+note left of selain
+Käyttäjä kirjoittaa lomakkeen tekstikenttään
+end note
+
+kayttaja->selain:
+note left of selain
+Käyttäjä painaa lomakkeen 'Tallenna' nappia
+end note
+
+note right of selain
+  Palvelin suorittaa javascriptiä, ja lisää uuden muistiinpanon listaan
+end note
+
+selain->palvelin: xhr /new_note_spa
+note right of selain
+  Selain lähettää xhr:llä muistiinpanon palvelimelle
+end note
+
+note left of palvelin
+  Palvelin tallentaa muistiinpanon tietokantaan
+end note

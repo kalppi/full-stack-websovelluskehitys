@@ -1,0 +1,34 @@
+kayttaja->selain:
+note left of selain
+kayttaja kirjottaa osoiteriville
+https://fullstack-exampleapp.herokuapp.com/notes
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/notes
+note left of palvelin
+  Palvelin lähettää selaimelle html sivun
+end note
+palvelin->selain: status 200, sivun html-koodi
+
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/main.css
+palvelin->selain: status 200, css
+
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/main.js
+palvelin->selain: status 200, js
+
+note left of selain
+ Selain näyttää käyttäjälle html sivun,
+ ja suorittaa javascript koodin
+end note
+
+selain->palvelin: GET /data.json
+
+note left of palvelin
+ Selain lähettää xhr pyynnön palvelimelle
+end note
+
+palvelin->selain: status 200, data.json
+
+note left of selain
+ Selain käsittelee data.json tiedoston javascriptillä,
+ ja koostaa listan muistiinpanoista.
+end note
