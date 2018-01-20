@@ -1,0 +1,13 @@
+
+.notification {
+	width: 300px;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.notification.success {
+	background: green;
+}
+.notification.error {
+	background: red;
+}
