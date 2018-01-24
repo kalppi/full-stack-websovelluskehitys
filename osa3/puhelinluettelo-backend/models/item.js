@@ -1,9 +1,13 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const url = 'mongodb://fullstack:salasana@ds115198.mlab.com:15198/puhelinluettelo';
+if(process.env.NODE_ENV !== 'production') {
+	require('dotenv').config();
+}
 
-mongoose.connect(url)
-mongoose.Promise = global.Promise
+const url = process.env.MONGODB_URI;
+
+mongoose.connect(url);
+mongoose.Promise = global.Promise;
 
 const itemSchema = new mongoose.Schema({
 	name: String,
@@ -21,7 +25,7 @@ const _formatItem = (item) => {
 itemSchema.statics.format = (items) => {
 	if(Array.isArray(items)) {
 		for(let i in items) {
-			items[i] = _formatItem(items[i]);
+			items[i] = _formatItem(items[i]);
 		}
 		return items;
 	} else {
@@ -31,4 +35,4 @@ itemSchema.statics.format = (items) => {
 
 const Item = mongoose.model('Item', itemSchema);
 
-module.exports = Item
+module.exports = Item;

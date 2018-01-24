@@ -10,14 +10,14 @@ router.route('/persons')
 			.then(Item.format)
 			.then(results => {
 				res.send(results);
-		});
+			});
 	})
 	.post((req, res) => {
 		const name = req.body.name.trim();
 		const number = req.body.number.trim();
 
 		const sendError = (error) => {
-			res.status(400).send({error});
+			res.status(400).send({ error });
 		};
 
 		if(name === undefined) {
@@ -75,8 +75,8 @@ router.route('/persons/:id')
 			res.status(400).send({error: 'invalid id'});
 		}  else {
 			Item.findOneAndUpdate({_id: id}, {name, number}).then(item => {
-				if(item == null) {
-					res.status(404).end()
+				if(item === null) {
+					res.status(404).end();
 				} else {
 					res.send({message: 'success'});
 				}

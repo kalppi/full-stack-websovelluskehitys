@@ -12,16 +12,16 @@ app.use(bodyParser.json());
 
 app.use(express.static('build'));
 
-morgan.token('body', (req, res) => JSON.stringify(req.body));
+morgan.token('body', (req) => JSON.stringify(req.body));
 app.use(morgan(':method :url :body :status :res[content-length] - :response-time ms'));
 
 app.use('/api', api);
 
 app.get('/info', (req, res) => {
 	Item.count().then(count => {
-			res.send(`
-		<p>Puhelinluettelossa on ${count} henkilön tiedot</p>
-		<p>${new Date()}</p>
+		res.send(`
+			<p>Puhelinluettelossa on ${count} henkilön tiedot</p>
+			<p>${new Date()}</p>
 				`);
 	});
 });
