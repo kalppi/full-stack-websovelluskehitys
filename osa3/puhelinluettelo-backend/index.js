@@ -6,8 +6,10 @@ const express = require('express'),
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.json());
+
+app.use(express.static('public'));
 
 morgan.token('body', (req, res) => JSON.stringify(req.body));
 app.use(morgan(':method :url :body :status :res[content-length] - :response-time ms'));
