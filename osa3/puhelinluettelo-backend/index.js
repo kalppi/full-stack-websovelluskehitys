@@ -2,6 +2,7 @@ const express = require('express'),
 	bodyParser = require('body-parser'),
 	cors = require('cors'),
 	morgan = require('morgan'),
+	Item = require('./models/item'),
 	api = require('./api');
 
 const app = express();
@@ -9,32 +10,20 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use(express.static('public'));
+app.use(express.static('build'));
 
 morgan.token('body', (req, res) => JSON.stringify(req.body));
 app.use(morgan(':method :url :body :status :res[content-length] - :response-time ms'));
 
-const data = [{
-	id: 1,
-	name: 'Pertti',
-	number: '555-12345'
-}, {
-	id: 2,
-	name: 'Matti',
-	number: '555-53421'
-}, {
-	id: 3,
-	name: 'Pera',
-	number: '555-23522'
-}];
-
-app.use('/', api(data));
+app.use('/api', api);
 
 app.get('/info', (req, res) => {
-	res.send(`
-<p>Puhelinluettelossa on ${data.length} henkilön tiedot</p>
-<p>${new Date()}</p>
-		`);
+	Item.count().then(count => {
+			res.send(`
+		<p>Puhelinluettelossa on ${count} henkilön tiedot</p>
+		<p>${new Date()}</p>
+				`);
+	});
 });
 
 const PORT = process.env.PORT || 3001;
