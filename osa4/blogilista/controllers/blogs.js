@@ -23,7 +23,7 @@ router.get('/:id', async (request, response) => {
 	}
 });
 
-router.post('/',async  (request, response) => {
+router.post('/', async (request, response) => {
 	const body = request.body;
 
 	try {
@@ -53,6 +53,8 @@ router.post('/',async  (request, response) => {
 
 		const result = await blog.save();
 
+		Blog.populate(result, 'user', {name: 1, username: 1});;
+
 		user.blogs = user.blogs.concat(result._id);
 		await user.save();
 
@@ -81,8 +83,9 @@ router.delete('/:id', async (request, response) => {
 		}
 
 		const blog = await Blog.findById(id).populate('user', {_id: 1});
+		const allowDelete = !blog.user || (blog.user._id.toString() === decodedToken.id.toString());
 
-		if(blog.user._id.toString() === decodedToken.id.toString()) {
+		if(allowDelete) {
 			await Blog.remove({_id: id});
 			
 			response.send({message: 'deleted'});
